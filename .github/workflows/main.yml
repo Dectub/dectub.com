@@ -41,12 +41,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: deploy
         env:
-          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+          DEPLOY_KEY: ${{secrets.DEPLOY_KEY }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_ADDRESS: ${{ secrets.DOCKER_ADDRESS }}
           TARGET_MACHINE: ${{ secrets.TARGET_MACHINE }}
-          DOCKER_REPO_NAME: ${{secrets.DOCKER_REPO_NAME}}
+          DOCKER_REPO_NAME: ${{secrets.DOCKER_REPO_NAME }}
         run: |
           sudo tee /etc/docker/daemon.json <<- EOF
                       {
@@ -59,6 +59,6 @@ jobs:
           sudo tee /home/id_rsa <<- EOF
           $DEPLOY_KEY
           EOF
-          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker rm -f neilwang.wiki"
-          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker pull $DOCKER_ADDRESS/neilwang.wiki:latest"
-          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker run --name neilwang.wiki -d -p 10080:80 --restart always $DOCKER_ADDRESS/$DOCKER_REPO_NAME"
+          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker rm -f dectub.com"
+          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker pull $DOCKER_ADDRESS/$DOCKER_REPO_NAME"
+          ssh -i /home/id_rsa $TARGET_MACHINE -o "StrictHostKeyChecking no" "docker run --name dectub.com -d -p 11080:80 --restart always $DOCKER_ADDRESS/$DOCKER_REPO_NAME"
